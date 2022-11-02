@@ -13,7 +13,7 @@ import smtplib, os
 from dotenv import load_dotenv
 
 
-load_dotenv("C:/Users/manda/.env")
+load_dotenv(".env")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
