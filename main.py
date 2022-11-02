@@ -10,11 +10,16 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 import smtplib, os
+from dotenv import load_dotenv
+
+
+load_dotenv("C:/Users/manda/.env")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 ckeditor = CKEditor(app)
 Bootstrap(app)
+
 
 # CONNECT TO DB
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
@@ -173,20 +178,21 @@ def about():
 
 @app.route("/contact", methods=['GET', 'POST'])
 def contact():
-    my_email = "obeacoup@gmail.com"
-    password = "mmexpzzzefaervmb"
-    address = "mandanovi30@gmail.com"
+    MY_EMAIL = os.getenv("my_email")
+    PASSWORD = os.getenv("password")
+    ADDRESS = os.getenv("address")
+    PORT = os.getenv("port")
     if request.method == "POST":
         data_form = request.form
         username = data_form["username"]
         email = data_form["email-form"]
         phone = data_form["phone-form"]
         message = data_form["message-form"]
-        with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
+        with smtplib.SMTP("smtp.gmail.com", port=PORT) as connection:
             connection.starttls()
-            connection.login(user=my_email, password=password)
-            connection.sendmail(from_addr=my_email,
-                                to_addrs=address,
+            connection.login(user=MY_EMAIL, password=PASSWORD)
+            connection.sendmail(from_addr=MY_EMAIL,
+                                to_addrs=ADDRESS,
                                 msg=f"Subject:You get a message from {username}\n\n"
                                     f"Email : {email}\nPhone number : {phone}\nMessage: {message}")
         return render_template("contact.html", msg_sent=True)
