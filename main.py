@@ -10,10 +10,8 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 import smtplib, os
-from dotenv import load_dotenv
 
 
-load_dotenv("Users/manda/.env")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
@@ -178,10 +176,10 @@ def about():
 
 @app.route("/contact", methods=['GET', 'POST'])
 def contact():
-    MY_EMAIL = os.getenv("my_email")
-    PASSWORD = os.getenv("password")
-    ADDRESS = os.getenv("address")
-    PORT = os.getenv("port")
+    MY_EMAIL = os.environ.get("my_email")
+    PASSWORD = os.environ.get("password")
+    ADDRESS = os.environ.get("address")
+    PORT = os.environ.get("port")
     if request.method == "POST":
         data_form = request.form
         username = data_form["username"]
