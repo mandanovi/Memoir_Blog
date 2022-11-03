@@ -106,7 +106,8 @@ def register():
         new_user = User(email=form.email.data, password=pw_hash, name=form.name.data)
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for("get_all_posts"))
+        flash("Thank you for registering to my blog. It means a lot. Please log in now")
+        return redirect(url_for("login"))
     return render_template("register.html", form=form, logged_in=current_user.is_authenticated)
 
 
