@@ -46,7 +46,7 @@ class BlogPost(db.Model):
     img_url = db.Column(db.String(250), nullable=False)
     comments = relationship("Comment", back_populates="parent_post")
 
-# db.create_all()
+db.create_all()
 
 
 class User(UserMixin, db.Model):
